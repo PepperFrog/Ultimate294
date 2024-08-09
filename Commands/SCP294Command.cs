@@ -82,6 +82,12 @@ namespace SCP294.Commands
                     response = "You aren't holding a coin to buy a drink with.";
                     return false;
                 }
+                player.SessionVariables.TryGetValue("canscp294", out object value);
+                if((bool) value != true)
+                {
+                    response = "You can use scp294 only once in a lifecycle.";
+                    return false;
+                }                
                 if (arguments.Count > 0 && arguments.At(0).ToLower() == "player") {
                     // Player Cup
                     // Try and Get player
@@ -150,6 +156,7 @@ namespace SCP294.Commands
                         });
 
                         SCP294Object.SetSCP294Uses(scp294, SCP294.Instance.SCP294UsesLeft[scp294] - 1);
+                        player.SessionVariables["canscp294"] = false;
                         response = $"SCP-294 Started Dispensing a Drink of {targetPlayer.Nickname}.";
                         return true;
                     }
@@ -207,7 +214,8 @@ namespace SCP294.Commands
                         });
 
                         SCP294Object.SetSCP294Uses(scp294, SCP294.Instance.SCP294UsesLeft[scp294] - 1);
-                        response = $"SCP-294 Started Dispensing a Drink of{targetPlayer.Nickname}'s Cum.";
+                        player.SessionVariables["canscp294"] = false;
+                        response = $"SCP-294 Started Dispensing a Drink of {targetPlayer.Nickname}'s Cum.";
                         return true;
                     }
                     response = "SCP-294 couldn't determine your drink, and refunded you your coin.";
@@ -269,6 +277,7 @@ namespace SCP294.Commands
 
                                         response = $"SCP-294 Started Dispensing a Drink of {drinkName}. {(SCP294.Instance.Config.ForceRandom ? "(Server Forced Random Drink)" : "")}";
                                         SCP294Object.SetSCP294Uses(scp294, SCP294.Instance.SCP294UsesLeft[scp294] - 1);
+                                        player.SessionVariables["canscp294"] = false;
                                         return true;
                                     } else
                                     {
@@ -335,6 +344,7 @@ namespace SCP294.Commands
 
                                         response = $"SCP-294 Backfired!!! It Started Dispensing a Drink of {player.Nickname}";
                                         SCP294Object.SetSCP294Uses(scp294, SCP294.Instance.SCP294UsesLeft[scp294] - 1);
+                                        player.SessionVariables["canscp294"] = false;
                                         return true;
                                     }
                                 } else
@@ -414,6 +424,7 @@ namespace SCP294.Commands
 
                                     response = $"SCP-294 Started Dispensing a Drink of {drinkName}. {(SCP294.Instance.Config.ForceRandom ? "(Server Forced Random Drink)" : "")}";
                                     SCP294Object.SetSCP294Uses(scp294, SCP294.Instance.SCP294UsesLeft[scp294] - 1);
+                                    player.SessionVariables["canscp294"] = false;
                                     return true;
                                 }
                             }

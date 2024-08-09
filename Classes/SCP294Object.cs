@@ -87,7 +87,7 @@ namespace SCP294.Classes
         /// </summary>
         public static void CreateSCP294(Vector3 Position, Quaternion Rotation, Vector3 Scale)
         {
-            SchematicObject scp294 = ObjectSpawner.SpawnSchematic("scp294", Vector3.zero, Quaternion.identity, Vector3.one);
+            SchematicObject scp294 = ObjectSpawner.SpawnSchematic("scp294", Vector3.zero, Quaternion.identity, Vector3.one, null, false);
             scp294.Position = Position;
             scp294.Rotation = Rotation;
             scp294.Scale = Scale;

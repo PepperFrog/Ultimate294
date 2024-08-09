@@ -17,7 +17,7 @@ namespace SCP294
     {
         public override string Name => "Ultimate294";
         public override string Author => "creepycats";
-        public override Version Version => new Version(1, 1, 1);
+        public override Version Version => new Version(1, 1, 2);
 
         public override PluginPriority Priority => PluginPriority.Highest;
 
@@ -64,7 +64,7 @@ namespace SCP294
 
             Timing.KillCoroutines(hintCoroutine);
 
-            _harmony.UnpatchAll();
+            _harmony.UnpatchAll(_harmony.Id);
             _harmony = null;
 
             Log.Info("Disabled Plugin Successfully");
@@ -87,6 +87,7 @@ namespace SCP294
             Player.ChangingItem += PlayerHandler.ChangingItem;
             Player.UsedItem += PlayerHandler.UsedItem;
             Player.Joined += PlayerHandler.Joined;
+            Player.Died += PlayerHandler.Died;
         }
         public void UnregisterEvents()
         {
@@ -95,6 +96,7 @@ namespace SCP294
             Player.ChangingItem -= PlayerHandler.ChangingItem;
             Player.UsedItem -= PlayerHandler.UsedItem;
             Player.Joined -= PlayerHandler.Joined;
+            Player.Died -= PlayerHandler.Died;
         }
     }
 }

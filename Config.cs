@@ -101,7 +101,7 @@ namespace SCP294.Config
         /// The maximum uses of a SCP-294 machine before it deactivates. Set to -1 for infinite uses
         /// </summary>
         [Description("The maximum uses of a SCP-294 machine before it deactivates. Set to -1 for infinite uses")]
-        public int MaxUsesPerMachine { get; set; } = 3;
+        public int MaxUsesPerMachine { get; set; } = -1;
         /// <summary>
         /// The maximum size a player can grow to from a drink.
         /// </summary>

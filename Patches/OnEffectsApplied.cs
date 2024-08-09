@@ -76,32 +76,30 @@ namespace SCP294.Patches
         [HarmonyPrefix]
         private static bool Prefix(NetworkConnection conn, VoiceMessage msg)
         {
+            // Custom logic: Early return if voice effects are disabled
             if (!SCP294.Instance.Config.EnableVoiceEffects) return true;
 
+            // Custom validation checks from the patch
             if (msg.SpeakerNull || msg.Speaker.netId != conn.identity.netId)
             {
                 return false;
             }
+
             IVoiceRole voiceRole = msg.Speaker.roleManager.CurrentRole as IVoiceRole;
-            if (voiceRole == null)
+            if (voiceRole == null || !voiceRole.VoiceModule.CheckRateLimit() || VoiceChatMutes.IsMuted(msg.Speaker, false))
             {
                 return false;
             }
-            if (!voiceRole.VoiceModule.CheckRateLimit())
-            {
-                return false;
-            }
-            if (VoiceChatMutes.IsMuted(msg.Speaker, false))
-            {
-                return false;
-            }
+
             VoiceChatChannel voiceChatChannel = voiceRole.VoiceModule.ValidateSend(msg.Channel);
             if (voiceChatChannel == VoiceChatChannel.None)
             {
                 return false;
             }
+
             voiceRole.VoiceModule.CurrentChannel = voiceChatChannel;
 
+            // Custom pitch shifting logic
             Player plr = Player.Get(msg.Speaker);
             if (SCP294.Instance.PlayerVoicePitch.TryGetValue(plr.UserId, out float pitchShift) && pitchShift != 1f)
             {
@@ -114,20 +112,8 @@ namespace SCP294.Patches
                 msg.DataLength = comp.Encoder.Encode(message, msg.Data, 480);
             }
 
-            foreach (ReferenceHub referenceHub in ReferenceHub.AllHubs)
-            {
-                IVoiceRole voiceRole2 = referenceHub.roleManager.CurrentRole as IVoiceRole;
-                if (voiceRole2 != null)
-                {
-                    VoiceChatChannel voiceChatChannel2 = voiceRole2.VoiceModule.ValidateReceive(msg.Speaker, voiceChatChannel);
-                    if (voiceChatChannel2 != VoiceChatChannel.None)
-                    {
-                        msg.Channel = voiceChatChannel2;
-                        referenceHub.connectionToClient.Send<VoiceMessage>(msg, 0);
-                    }
-                }
-            }
-            return false;
+            // Ensure the original method runs after the custom logic
+            return true;
         }
     }
 }

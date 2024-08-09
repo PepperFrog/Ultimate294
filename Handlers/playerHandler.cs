@@ -18,7 +18,12 @@ namespace SCP294.handlers
     {
         public void Joined(JoinedEventArgs args)
         {
+            args.Player.SessionVariables.Add("canscp294",(bool) true);
+        }
 
+        public void Died(DiedEventArgs args)
+        {
+            args.Player.SessionVariables["canscp294"] = true;
         }
 
         public void ChangingItem(ChangingItemEventArgs args) {
