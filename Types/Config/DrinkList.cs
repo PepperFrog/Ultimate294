@@ -2411,7 +2411,7 @@ namespace SCP294.Types.Config
                         EffectType = EffectType.Invisible,
                         EffectAmount = 1,
                         ShouldAddIfPresent = true,
-                        Time = 15
+                        Time = 10
                     }
                 }
             }, // Hat / Invisibility
