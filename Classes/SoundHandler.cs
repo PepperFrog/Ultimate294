@@ -137,10 +137,7 @@ namespace SCP294
         public static Npc SpawnFix(string name, RoleTypeId role, int id = 0, string userId = "", Vector3? position = null)
         {
             GameObject gameObject = UnityEngine.Object.Instantiate(Mirror.NetworkManager.singleton.playerPrefab);
-            Npc npc = new Npc(gameObject)
-            {
-                IsNPC = true
-            };
+            Npc npc = new Npc(gameObject);
             try
             {
                 npc.ReferenceHub.roleManager.InitializeNewRole(RoleTypeId.None, RoleChangeReason.None, RoleSpawnFlags.None);

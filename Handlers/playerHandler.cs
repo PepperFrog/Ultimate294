@@ -10,6 +10,8 @@ using RelativePositioning;
 using SCP294.Types;
 using SCP294.Types.Config;
 using System;
+using Exiled.API.Features.Hazards;
+using HarmonyLib;
 using UnityEngine;
 
 namespace SCP294.handlers
@@ -105,14 +107,15 @@ namespace SCP294.handlers
                         if (Physics.Raycast(args.Player.Position, Vector3.down, out RaycastHit hitInfo, 3f, ability._tantrumMask))
                         {
                             TantrumEnvironmentalHazard tantrumEnvironmentalHazard = UnityEngine.Object.Instantiate(ability._tantrumPrefab);
+                            TantrumHazard tantrumHazard = new TantrumHazard(tantrumEnvironmentalHazard);
                             Vector3 targetPos = hitInfo.point + (Vector3.up * 1.25f);
                             tantrumEnvironmentalHazard.SynchronizedPosition = new RelativePosition(targetPos);
                             NetworkServer.Spawn(tantrumEnvironmentalHazard.gameObject);
-                            foreach (TeslaGate teslaGate in TeslaGateController.Singleton.TeslaGates)
+                            foreach (Exiled.API.Features.TeslaGate teslaGate in Exiled.API.Features.TeslaGate.List)
                             {
-                                if (teslaGate.IsInIdleRange(args.Player.Position))
+                                if (teslaGate.IsPlayerInIdleRange(args.Player))
                                 {
-                                    teslaGate.TantrumsToBeDestroyed.Add(tantrumEnvironmentalHazard);
+                                    teslaGate.TantrumsToDestroy.AddItem(tantrumHazard);
                                 }
                             }
                         }
