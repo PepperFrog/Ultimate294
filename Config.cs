@@ -112,5 +112,10 @@ namespace SCP294.Config
         /// </summary>
         [Description("The minimum size a player can shrink to from a drink.")]
         public Vector3 MinSizeFromDrink { get; set; } = new Vector3(0.7f,0.7f,0.7f);
+        ///<summary>
+        /// The Botid for the sound (change this if sound isn't working)
+        /// </summary>
+        [Description("The Botid for the sound (change this if sound isn't working)")]
+        public int BotId { get; set; } = 294;
     }
 }

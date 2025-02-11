@@ -8,6 +8,7 @@ using SCP294.Types;
 using SCP294.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -153,8 +154,8 @@ namespace SCP294.Classes
         /// <param name="soundType">The Sound Type to play, either normal or unstable</param>
         public static void PlayDispensingSound(Player player, DrinkSound soundType) {
             SchematicObject scp294 = GetClosest294(player);
-
-            SoundHandler.PlayAudio(new DrinkSoundFiles().List[(int)soundType], 50, false, "SCP-294", scp294.Position + new Vector3(0,1,0), 6f);
+            var path = Path.Combine(Path.Combine(Paths.Configs, "SCP294"), new DrinkSoundFiles().List[(int)soundType]);
+            AudioPlayer.API.SoundPlayer.PlaySoundAtPlace(path, scp294.Position +new Vector3(0,1,0),5, "SCP-294",SCP294.Instance.Config.BotId, true);
         }
 
         /// <summary>

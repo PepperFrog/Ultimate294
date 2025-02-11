@@ -39,7 +39,6 @@
     <Compile Include="Classes\DrinkManager.cs" />
     <Compile Include="Classes\OpusComponent.cs" />
     <Compile Include="Classes\SCP294Object.cs" />
-    <Compile Include="Classes\SoundHandler.cs" />
     <Compile Include="Commands\SCP294AdminCommand.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Patches\OnEffectsApplied.cs" />
@@ -68,6 +67,9 @@
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="AudioPlayer">
+      <HintPath>$(EXILED_REFERENCES)\AudioPlayer.dll</HintPath>
     </Reference>
     <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ExMod.Exiled.9.5.0\lib\net48\CommandSystem.Core.dll</HintPath>
