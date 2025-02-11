@@ -155,7 +155,7 @@ namespace SCP294.Classes
         public static void PlayDispensingSound(Player player, DrinkSound soundType) {
             SchematicObject scp294 = GetClosest294(player);
             var path = Path.Combine(Path.Combine(Paths.Configs, "SCP294"), new DrinkSoundFiles().List[(int)soundType]);
-            AudioPlayer.API.SoundPlayer.PlaySoundAtPlace(path, scp294.Position +new Vector3(0,1,0),5, "SCP-294",SCP294.Instance.Config.BotId, true);
+            AudioPlayer.API.SoundPlayer.PlaySoundAtPlace(path, scp294.Position +new Vector3(0,1,0),5, "SCP-294",SCP294.Instance.Config.BotId, false);
         }
 
         /// <summary>
