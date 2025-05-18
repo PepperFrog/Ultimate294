@@ -13,8 +13,8 @@ namespace SCP294.Types
     }
     public class DrinkSoundFiles {
         public List<string> List = new List<string>() {
-            "294dispense.ogg",
-            "294explode.ogg"
+            "294dispense",
+            "294explode"
         };
     }
 }
