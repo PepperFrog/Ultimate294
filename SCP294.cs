@@ -4,12 +4,12 @@ using Server = Exiled.Events.Handlers.Server;
 using System;
 using System.Collections.Generic;
 using MEC;
-using MapEditorReborn.API.Features.Objects;
+using ProjectMER.Features.Objects;
 using SCP294.Classes;
 using SCP294.Types;
 using HarmonyLib;
 using Exiled.API.Enums;
-using VoiceChat.Codec;
+using ProjectMER.Features.Serializable;
 
 namespace SCP294
 {
@@ -17,7 +17,7 @@ namespace SCP294
     {
         public override string Name => "Ultimate294";
         public override string Author => "creepycats";
-        public override Version Version => new Version(1, 1, 3);
+        public override Version Version => new Version(1, 1, 4);
 
         public override PluginPriority Priority => PluginPriority.Highest;
 
@@ -25,7 +25,7 @@ namespace SCP294
 
         public Dictionary<SchematicObject, bool> SpawnedSCP294s { get; set; } = new Dictionary<SchematicObject, bool>();
         public Dictionary<SchematicObject, int> SCP294UsesLeft { get; set; } = new Dictionary<SchematicObject, int>();
-        public Dictionary<SchematicObject, LightSourceObject> SCP294LightSources { get; set; } = new Dictionary<SchematicObject, LightSourceObject>();
+        public Dictionary<SchematicObject, SerializableLight> SCP294LightSources { get; set; } = new Dictionary<SchematicObject, SerializableLight>();
         public List<string> PlayersNear294 { get; set; } = new List<string>();
         public Dictionary<ushort, DrinkInfo> CustomDrinkItems = new Dictionary<ushort, DrinkInfo>();
         public DrinkManager DrinkManager = new DrinkManager();

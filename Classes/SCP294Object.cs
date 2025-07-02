@@ -1,7 +1,6 @@
 ﻿using Exiled.API.Features;
-using MapEditorReborn.API.Features;
-using MapEditorReborn.API.Features.Objects;
-using MapEditorReborn.API.Features.Serializable;
+using ProjectMER.Features;
+using ProjectMER.Features.Objects;
 using SCP294.Types;
 using SCP294.Utils;
 using System;
@@ -93,12 +92,12 @@ namespace SCP294.Classes
         /// </summary>
         public static void CreateSCP294(Vector3 Position, Quaternion Rotation, Vector3 Scale)
         {
-            SchematicObject scp294 = ObjectSpawner.SpawnSchematic("scp294", Vector3.zero, Quaternion.identity,
-                Vector3.one, null, false);
+            SchematicObject scp294 =
+                ObjectSpawner.SpawnSchematic("scp294", Vector3.zero, Quaternion.identity, Vector3.one);
             scp294.Position = Position;
             scp294.Rotation = Rotation;
             scp294.Scale = Scale;
-
+            /*
             // Add Illumination to Front
             Vector3 lightPos = scp294.Position;
             lightPos += scp294.Rotation * new Vector3(0f, 1.25f, -1.25f);
@@ -108,7 +107,7 @@ namespace SCP294.Classes
                 Intensity = 0.25f,
                 Shadows = true,
                 Range = 1
-            }, lightPos));
+            }, lightPos));*/
 
             // Add to 294 List
             SCP294.Instance.SpawnedSCP294s.Add(scp294, false);
@@ -125,7 +124,7 @@ namespace SCP294.Classes
             {
                 SCP294.Instance.SpawnedSCP294s.Remove(scp294);
                 SCP294.Instance.SCP294UsesLeft.Remove(scp294);
-                try
+                /*try
                 {
                     if (SCP294.Instance.SCP294LightSources.Keys.Contains(scp294))
                     {
@@ -135,7 +134,7 @@ namespace SCP294.Classes
                 }
                 catch (Exception err)
                 {
-                }
+                }*/
 
                 scp294.Destroy();
             }
@@ -152,8 +151,8 @@ namespace SCP294.Classes
             {
                 SCP294.Instance.SCP294UsesLeft[scp294] = useCount;
                 // Disable and Enable
-                SCP294.Instance.SCP294LightSources[scp294].Light.Range = useCount == 0 ? 0 : 1;
-                SCP294.Instance.SCP294LightSources[scp294].Light.Intensity = useCount == 0 ? 0 : 0.25f;
+                //SCP294.Instance.SCP294LightSources[scp294].Light.Range = useCount == 0 ? 0 : 1;
+                //SCP294.Instance.SCP294LightSources[scp294].Light.Intensity = useCount == 0 ? 0 : 0.25f;
             }
         }
 
@@ -166,7 +165,16 @@ namespace SCP294.Classes
         {
             SchematicObject scp294 = GetClosest294(player);
             var path = Path.Combine(Path.Combine(Paths.Configs, "SCP294"), new DrinkSoundFiles().List[(int)soundType]);
-            AudioPlayerManager.API.SoundPlayer.PlayLocalAudio(path, false, scp294.Position + new Vector3(0, 1, 0), 5);
+            try
+            {
+                AudioPlayerManager.API.SoundPlayer.PlayLocalAudio(path, false, scp294.Position + new Vector3(0, 1, 0),
+                    5);
+            }
+            catch (Exception e)
+            {
+                Log.Error("AudioPlayerManager could not be contacted, is the plugin enabled ?");
+            }
+            
         }
 
         /// <summary>

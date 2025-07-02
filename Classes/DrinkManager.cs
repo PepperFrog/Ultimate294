@@ -1,12 +1,7 @@
 ﻿using SCP294.Types.Config;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MEC;
-using MapEditorReborn.API.Features.Objects;
-using Exiled.API.Features;
 
 namespace SCP294.Classes
 {
